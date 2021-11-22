@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+config.py
+.idea
 .Python
 build/
 develop-eggs/
