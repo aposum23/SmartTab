@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 
 class Table(models.Model):
@@ -20,10 +21,6 @@ class UserSettings(models.Model):
 
 
 class Friends(models.Model):
-    friend_id = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
+    friend_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
-class PlansWithFriends(models.Model):
-    friend_id = models.ForeignKey(Friends, on_delete=models.CASCADE)
-    plan_id = models.ForeignKey(Shedule, on_delete=models.CASCADE)
 # Create your models here.
