@@ -5,7 +5,10 @@
 </head>
 
 <body>
-  {{ status }}
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Войти</button>
+    </form>
   {{ text }}
   {% for button_name in buttons_name %}
     <p><a href="{% url button_name %}">{{button_name}}</a></p>
