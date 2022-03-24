@@ -1,0 +1,31 @@
+<!-Духно Михаил Александрович-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Регистрация нового пользователя</title>
+</head>
+
+<body style="background: rgb(33,37,41);margin: 0px;">
+    <div style="width: 350px;background: #FC9803;height: 500px;margin: 50px;margin-left: auto;margin-right: auto;">
+        <form method="post" style="margin-left: 50px;width: 250px;">
+            {% csrf_token %}
+            <h1 style="font-size: 20px;color: rgb(255,255,255);padding-top: 15px;">Имя:</h1>
+            {{ form.first_name }}
+            <h1 style="font-size: 20px;color: rgb(255,255,255);margin-top: 15px;">Фамилия:</h1>
+            {{ form.last_name }}
+            <h1 style="font-size: 20px;color: rgb(255,255,255);">Логин:</h1>
+            {{ form.username }}
+            <h1 style="font-size: 20px;color: rgb(255,255,255);margin-top: 15px;">Пароль:</h1>
+            {{ form.password1 }}
+            <h1 style="font-size: 20px;color: rgb(255,255,255);margin-top: 15px;">Повторите пароль:</h1>
+            {{ form.password2 }}
+            <button class="btn btn-primary d-block" type="submit" style="height: 50px;background: rgb(255,255,255);color: rgb(33,37,41);margin-top: 30px;width: 250px;">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+
+</html>
+<!-misha.duhno@mail.ru-->

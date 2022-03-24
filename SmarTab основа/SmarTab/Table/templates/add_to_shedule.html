@@ -1,0 +1,88 @@
+<!-Духно Михаил Александрович-->
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Добавить в расписание {% endblock %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <h1 style="color: rgb(255,255,255);margin-left: 50px;">Заголовок:</h1>
+  <input name="head" type="text" style="width: 400px;color: rgb(255,255,255);font-size: 20px;background: rgb(252,152,3);margin-left: 50px;" />
+  <h1 style="color: rgb(255,255,255);margin-top: 20px;margin-left: 50px;">Кртакое описание:</h1>
+  <input name="desc" type="text" style="width: 400px;color: rgb(255,255,255);font-size: 20px;background: rgb(252,152,3);margin-left: 50px;" />
+  <h1 style="color: rgb(255,255,255);margin-top: 20px;margin-left: 50px;">Дата:</h1>
+  <input name="date" type="date" style="width: 400px;height: 36px;font-size: 20px;color: rgb(255,255,255);background: rgb(252,152,3);margin-left: 50px;" />
+  <h1 style="color: rgb(255,255,255);margin-top: 20px;">Выберите место на карте:</h1>
+  <div id="map" style="width: 100%; height: 400px"></div>
+  <button onclick="send_inf()" id="button" class="btn btn-primary"
+          type="submit"
+          style="font-size: 20px;background: rgb(252,152,3);width: 400px;margin-top: 30px;margin-left: 50px;">
+    Добавить в список
+  </button>
+</form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+  <script src="{% static 'OpenLayers.js' %}"></script>
+  <script>
+    var map, newMarker, markerLocation;
+    $(function(){
+        // Initialize the map
+        var map = L.map('map').setView([45.035443, 41.96846], 12);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 18
+        }).addTo(map);
+        newMarkerGroup = new L.LayerGroup();
+        map.on('click', addMarker);
+
+        function addMarker(e)
+        {
+            var newMarker = new L.marker(e.latlng).addTo(map);
+
+            function put(name,value,days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    var expires = "; expires="+date.toGMTString();
+                }
+                else var expires = "";
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+
+
+            put('crds1', e.latlng.lat, 1);
+            put('crds2', e.latlng.lng, 1);
+        }
+    });
+</script>
+<script>
+  function get(name){
+          var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+  }
+
+  function send_inf(){
+      var crds1 = get('crds1');
+      var crds2 = get('crds2');
+
+      var dataDict = {crds1: crds1, crds2: crds2,
+             head: $('input[name=head]').val(),
+             desc: $('input[name=desc]').val(),
+             date: $('input[name=date]').val(),
+             csrfmiddlewaretoken: '{{ csrf_token }}'}
+
+      $.ajax({
+        type: "POST",
+        data: dataDict,
+        url: "/add-to-shadule"
+      });
+    };
+</script>
+{% endblock %}
+<!-misha.duhno@mail.ru-->

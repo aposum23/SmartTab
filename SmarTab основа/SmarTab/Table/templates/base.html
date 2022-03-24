@@ -1,0 +1,54 @@
+<!-Духно Михаил Александрович------------------------------------------>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="background: #0F0F0E;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+
+<body style="background: #0F0F0E;">
+    <div style="float: left;width: 230px;height: 1000px;margin-top: 0px;margin-left: 0px;background: #FC9803;">
+        <!--Добавить изменение пути для тега img чтобы картинка бралась для каждого пользователя из бдшки-->
+        <img src="{{ img }}" style="width: 100px;height: 100px;border-radius: 90px;margin-top: 15px;margin-left: 65px;border-style: none;border-right-style: none;">
+        <h1 style="font-size: 20px;text-align: center;font-family: Open Sans Condensed;">{{ first_name }} {{ last_name }}</h1>
+        <input onclick="openPage(0)" type="button" style="width: 205px;height: 36px;margin-top: 20px;background: #0F0F0E;border-right-style: none;border-bottom-right-radius: 30px;border-top-right-radius: 30px;"
+            value="Расписание на сегодня">
+        <input onclick="openPage(1)" type="button" style="width: 205px;height: 36px;margin-top: 20px;background: #0F0F0E;border-right-style: none;border-bottom-right-radius: 30px;border-top-right-radius: 30px;"
+            value="Редактировать список">
+        <input type="button" style="background: #0F0F0E;width: 205px;height: 36px;margin-top: 20px;border-top-right-radius: 30px;border-bottom-right-radius: 30px;"
+            value="Друзья">
+        <input type="button" style="width: 205px;height: 36px;margin-top: 20px;background: #0F0F0E;border-top-right-radius: 30px;border-bottom-right-radius: 30px;"
+            value="Поделиться списком">
+        <input onclick="openPage(4)" type="button" style="background: #0F0F0E;width: 205px;height: 36px;margin-top: 20px;border-top-right-radius: 30px;border-bottom-right-radius: 30px;"
+            value="Настройки">
+    </div>
+    <div style="float: left;height: 100px;width: 500px;margin-left: 50px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script>
+        function openPage(numPage)
+        {
+            if (numPage == 0)
+            {
+                location.replace("./table")
+            }
+            else if (numPage == 1)
+            {
+                location.replace("./add-to-shadule")
+            }
+            else if (numPage == 4)
+            {
+                location.replace("./options")
+            }
+        }
+    </script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
+<!-misha.duhno@mail.ru---------------------------------------------------->

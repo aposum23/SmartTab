@@ -1,0 +1,25 @@
+<!-Духно Михаил Александрович-->
+{% extends "base.html" %}
+{% block title %} Расписание на сегодня {% endblock %}
+{% block content %}
+  <h1 style="color: rgb(255,255,255);">Список дел на сегодня:</h1>
+  <div class="table-responsive"
+       style="color: rgb(255,255,255);border-style: none;border-color: rgba(255,255,255,0);">
+    <table class="table">
+      {% for task in tasks %}
+        <tr style="border-style: none;">
+          <td style="padding-top: 40px;padding-bottom: 40px;">
+            {{task.name}}
+          </td>
+          <td style="padding-left: 80px; padding-top: 40px;padding-bottom: 40px;">
+            {{task.date}}
+          </td>
+          <td style="padding-left: 80px; padding-top: 40px;padding-bottom: 40px;">
+            <a style="color: rgb(255,255,255);" href={{task.coords}}>Метка на карте</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
+<!-misha.duhno@mail.ru-->
